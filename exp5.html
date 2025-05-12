@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EverGlow - Registration</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f1fc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .registration-form {
+      background: #fff;
+      padding: 2rem 3rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #a958c4;
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.7rem;
+      margin-top: 0.3rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9rem;
+      margin-top: 0.2rem;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 0.8rem;
+      background: #a958c4;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #8e44ad;
+    }
+  </style>
+</head>
+<body>
+
+  <form class="registration-form" id="regForm">
+    <h2>Register to EverGlow</h2>
+
+    <label for="name">Full Name</label>
+    <input type="text" id="name" required />
+    <span class="error" id="nameError"></span>
+
+    <label for="email">Email Address</label>
+    <input type="email" id="email" required />
+    <span class="error" id="emailError"></span>
+
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" required />
+    <span class="error" id="phoneError"></span>
+
+    <label for="password">Password</label>
+    <input type="password" id="password" required />
+    <span class="error" id="passwordError"></span>
+
+    <button type="submit">Register</button>
+  </form>
+
+  <script>
+    document.getElementById("regForm").addEventListener("submit", function(e) {
+      let isValid = true;
+
+      // Clear previous error messages
+      document.getElementById("nameError").innerText = "";
+      document.getElementById("emailError").innerText = "";
+      document.getElementById("phoneError").innerText = "";
+      document.getElementById("passwordError").innerText = "";
+
+      // Name validation
+      const name = document.getElementById("name").value.trim();
+      if (name.length < 3) {
+        document.getElementById("nameError").innerText = "Name must be at least 3 characters.";
+        isValid = false;
+      }
+
+      // Email validation using regex
+      const email = document.getElementById("email").value.trim();
+      const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+      if (!emailRegex.test(email)) {
+        document.getElementById("emailError").innerText = "Please enter a valid email address.";
+        isValid = false;
+      }
+
+      // Phone number validation (10 digits)
+      const phone = document.getElementById("phone").value.trim();
+      if (!/^[0-9]{10}$/.test(phone)) {
+        document.getElementById("phoneError").innerText = "Enter a 10-digit phone number.";
+        isValid = false;
+      }
+
+      // Password validation (at least 6 characters)
+      const password = document.getElementById("password").value;
+      if (password.length < 6) {
+        document.getElementById("passwordError").innerText = "Password must be at least 6 characters.";
+        isValid = false;
+      }
+
+      if (!isValid) {
+        e.preventDefault();
+      }
+    });
+  </script>
+
+</body>
+</html>
